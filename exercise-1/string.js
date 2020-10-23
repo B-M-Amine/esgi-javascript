@@ -18,18 +18,19 @@ function prop_access(obj, path) {
         return obj;
     }
     if(obj == null){
-        return "";
+        console.log(path + " not exist");
+        return null;
     }
     let props = path.split('.');
     let result = obj;
     for (var i = 0; i < props.length; i++) {
         result = result[props[i]];
+        if (typeof result === 'undefined'){
+            console.log(path + " not exist");
+            return null;
+        }
     }
-    if (typeof result !== 'undefined'){
-            return result;
-    }else{
-        console.log(path + " not exist");
-    }
+        return result;
 }
 
 
