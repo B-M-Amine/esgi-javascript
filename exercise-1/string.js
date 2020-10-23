@@ -14,8 +14,11 @@ function camelCase(chaine){
 }
 
 function prop_access(obj, path) {
-    if(path === null || path === ""){
+    if(path === ""){
         return obj;
+    }
+    if(path === null){
+        return null;
     }
     let props = path.split('.');
     let result = obj;
@@ -25,7 +28,7 @@ function prop_access(obj, path) {
     if (typeof result !== 'undefined'){
             return result;
     }else{
-        console.log(path + " does not exist");
+        console.log(path + " not exist");
     }
 }
 
