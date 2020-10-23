@@ -14,10 +14,10 @@ function camelCase(chaine){
 }
 
 function prop_access(obj, path) {
-    if(path === ""){
+    if(path === "" || path === null){
         return obj;
     }
-    if(path === null){
+    if(obj === null){
         return null;
     }
     let props = path.split('.');
