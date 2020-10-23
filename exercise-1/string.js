@@ -18,7 +18,7 @@ function prop_access(obj, path) {
         return obj;
     }
     if(obj === null){
-        return null;
+        return "";
     }
     let props = path.split('.');
     let result = obj;
