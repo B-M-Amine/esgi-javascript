@@ -65,9 +65,38 @@ function type_check_v2(value, conf) {
   return true;
 }
 
+ function type_check(value,conf){
+  for (key in conf) {
+    switch (key) {
+      case "type":
+        if (!type_check_v1(value, conf.type)) return false;
+        break;
+      case "value":
+        if (JSON.stringify(value) !== JSON.stringify(conf.value)) return false;
+        break;
+      case "enum":
+        // Par défault, non trouvé dans l'enum
+        let found = false;
+        for (subValue of conf.enum) {
+          found = type_check_v2(value, { value: subValue });
+          if (found) break;
+        }
+        if (!found) return false;
+        break;
+      case "properties":
+        return type_check(value, conf.properties);
+        break;
+    }
+  }
+
+  return true;
+}
+
 
 
 // Jeu de tests pour type_check
+console.log(type_check_v2(1, {type: 'number'}));
+
 console.log(type_check(1, { type: "number", value: 1 }) === true);
 console.log(type_check(1, { type: "number", value: 3 }) === false);
 console.log(type_check(1, { type: "object", value: 1 }) === false);
